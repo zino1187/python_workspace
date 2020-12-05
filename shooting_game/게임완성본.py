@@ -88,8 +88,8 @@ bulletList=[] #총알 리스트
 bgList=[] #배경 리스트
 
 # 배경생성
-bgList.append(BG.BG(canvas, bgImg, 0, 0 ,1280,960,-20,0))
-bgList.append(BG.BG(canvas, bgImg, 1280, 0 ,1280,960,-20,0))
+bgList.append(BG.BG(canvas, bgImg, 0, 0 ,1280,960,-10,0))
+bgList.append(BG.BG(canvas, bgImg, 1280, 0 ,1280,960,-10,0))
 
 # 적군생성
 for i in range(0, len(enemyPath)-1):
