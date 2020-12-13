@@ -53,10 +53,18 @@ win.geometry("1500x800") #너비 1000, 높이 800
 #켄버스 부착 
 canvas.pack()
 
+#event라는 객체를 넣어줘야 한다(이미 정해진 규칙임)
+def keyDown(event):
+    print("키보드 누름?")
+    showInfo("키보드 눌렀어?")
+
+#키보드 제어하기!
+win.bind("<Key>" , keyDown)  #키보드 누를때를 감지
+
 
 #게임의 정보를 출력하는 함수(점수, 적군수, 위치)
-def showInfo():
-    canvas.create_text(100,25, fill="red", font="verdana", text="Hello")
+def showInfo(msg):
+    canvas.create_text(100,25, fill="red", font="verdana", text=msg)
 
 #게임루프를 실행하는 함수 정의 
 #gameLoop() 라는 이름의 코드를 선언하고, 그 영역의 범위를 
@@ -73,7 +81,7 @@ def gameLoop():
         #주인공의 움직임관련 함수를 호출하자
         hero.tick()
         hero.render()
-        showInfo()
+        
         win.update() #윈도우창을 갱신
 
 
