@@ -24,10 +24,10 @@ class Hero(): #Hero라는 이름의 클래스 선언
     def tick(self): #주인공의 상태를 얼만큼 변화시킬지를 결정, 예) 2씩, 3씩 움직일지..
         self.x = self.x + self.velX
         self.y = self.y + self.velY
-
+        
     def render(self):
         #주인공의 변경값을 켄버스에 다시 그리기!! (움직일대상이미지, x, y)
         self.canvas.move( self.img , self.velX, self.velY)
-
+        print("velX 값은 ", self.velX)
 
 #총알을 만들자!!

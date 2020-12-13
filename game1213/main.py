@@ -53,6 +53,11 @@ win.geometry("1500x800") #너비 1000, 높이 800
 #켄버스 부착 
 canvas.pack()
 
+
+#게임의 정보를 출력하는 함수(점수, 적군수, 위치)
+def showInfo():
+    canvas.create_text(100,25, fill="red", font="verdana", text="Hello")
+
 #게임루프를 실행하는 함수 정의 
 #gameLoop() 라는 이름의 코드를 선언하고, 그 영역의 범위를 
 # 들여쓰기(tab)를 통해 알린다
@@ -65,7 +70,12 @@ def gameLoop():
     while True:
         print("gameLoop 호출")
         time.sleep(1/1000)  # 1/1000초까지 시간을 간격을 둘수있음
+        #주인공의 움직임관련 함수를 호출하자
+        hero.tick()
+        hero.render()
+        showInfo()
         win.update() #윈도우창을 갱신
+
 
 gameLoop() #게임루프를 호출
 #금방 닫혀버리는 윈도우창을 계속 떠있게 하자 
