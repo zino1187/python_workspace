@@ -25,19 +25,21 @@ win=Tk() #윈도우 생성하고 win 변수에 담아둔다
 #윈도우에 소속시킬 켄버스를 생성하고, 그 크기를 너비1500,높이 800
 canvas = Canvas(win, width=1500,height=800, bg="yellow")
 
-#주인공 생성하기 
-#canvas, img, x, y, width, height, velX, velY
-heroImg = getImage("./images/plane.png", 100, 65)
-hero=Hero(canvas) #거푸집(틀)로부터 주인공 탄생시키기
 
-
-#------------------------------------------------------------------
-# 그림 그리기 (켄버스에...)
-#------------------------------------------------------------------
 # 배경 그리기 
 bgImg = getImage("./images/desert.jpg", 1500, 800) #생성된 이미지를 다시 bgImg변수에 담음
 #anchor="nw" 옵션을 추가해야, 이미지가 켄버스에 가득 채워진다
 canvas.create_image(0, 0 , image=bgImg, anchor="nw")
+
+#주인공 생성하기 
+#canvas, img, x, y, width, height, velX, velY
+heroImg = getImage("./images/plane.png", 100, 65)
+hero=Hero(canvas, heroImg,100, 200,100,65,1,1) #거푸집(틀)로부터 주인공 탄생시키기
+
+#------------------------------------------------------------------
+# 그림 그리기 (켄버스에...)
+#------------------------------------------------------------------
+
 
 #주인공 그리기 
 #heroImg = getImage("./images/plane.png", 100, 65)

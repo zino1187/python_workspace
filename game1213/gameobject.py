@@ -17,6 +17,8 @@ class Hero(): #Hero라는 이름의 클래스 선언
         self.height=height
         self.velX=velX  #주인공의 x방향의 속도
         self.velY=velY #주인공의 y방향의 속도
+        #주인공은 태어날때 우리눈에 보여져야 하고, 지정한 켄버스에 그려져야 한다 
+        self.canvas.create_image(self.x, self.y, image=self.img)
 
     #주인공의 동작관 관련한 함수 정의 
     def tick(self): #주인공의 상태를 얼만큼 변화시킬지를 결정, 예) 2씩, 3씩 움직일지..
