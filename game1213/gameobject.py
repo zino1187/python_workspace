@@ -27,4 +27,5 @@ class Hero(): #Hero라는 이름의 클래스 선언
         #주인공의 변경값을 켄버스에 다시 그리기!! (움직일대상이미지, x, y)
         self.canvas.move( self.img , self.velX, self.velY)
 
+
 #총알을 만들자!!
