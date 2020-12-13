@@ -6,11 +6,11 @@ from PIL import Image
 from PIL import ImageTk 
 
 # 이미지 생성 함수 : 이 함수를 호출하는 자는, 이미지를 얻어갈수 있도록...
-def getImage(path): #함수를 호출하는 자가 path변수의 값을 결정할 수 있게 하자
+def getImage(path, width, height): #함수를 호출하는 자가 path변수의 값을 결정할 수 있게 하자
     img=Image.open(path)  #Image 객체는 pillow 모듈파일에서 지원한다..따라서 현재 개발환경에
                             #설치가 되어 있어야 한다..
     #크기를 우리가 원하느 크기로 재조정하자!!!
-    img=img.resize((1500,800), Image.ANTIALIAS) #재조정된 이미지를 다시변수로받기
+    img=img.resize((width, height), Image.ANTIALIAS) #재조정된 이미지를 다시변수로받기
     #크기가 재조정된 이미지를 켄버스에서 사용할 수 있도록 가공 
     img = ImageTk.PhotoImage(img) #img를 켄버스가 이해할수있는 이미지로 변환
     return img #함수 호출한 사람에게 결과를 반환하자!!
@@ -29,12 +29,12 @@ canvas = Canvas(win, width=1500,height=800, bg="yellow")
 # 그림 그리기 (켄버스에...)
 #------------------------------------------------------------------
 # 배경 그리기 
-bgImg = getImage("./images/desert.jpg") #생성된 이미지를 다시 bgImg변수에 담음
+bgImg = getImage("./images/desert.jpg", 1500, 800) #생성된 이미지를 다시 bgImg변수에 담음
 #anchor="nw" 옵션을 추가해야, 이미지가 켄버스에 가득 채워진다
 canvas.create_image(0, 0 , image=bgImg, anchor="nw")
 
 #주인공 그리기 
-heroImg = getImage("./images/plane.png")
+heroImg = getImage("./images/plane.png", 100, 65)
 canvas.create_image(100, 100, image=heroImg)
 
 
