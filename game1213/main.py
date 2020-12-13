@@ -9,5 +9,8 @@ canvas = Canvas(win, width=1500,height=800, bg="yellow")
 #내가 원하는 크기로 윈도우창을 늘리자!
 win.geometry("1500x800") #너비 1000, 높이 800
 
+#켄버스 부착 
+canvas.pack()
+
 #금방 닫혀버리는 윈도우창을 계속 떠있게 하자 
 win.mainloop()
