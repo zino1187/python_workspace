@@ -2,6 +2,12 @@
 from tkinter import Tk #tkinter라는 파일에 들어있는 Tk 함수를 쓰겠다
 from tkinter import Canvas #tkinter라는 파일에 들어있는 Canvas 함수를 쓰겠다
 import time #time이라는 모듈파일을 쓰겠다!!
+from PIL import Image
+
+# 이미지 생성 함수 : 이 함수를 호출하는 자는, 이미지를 얻어갈수 있도록...
+def getImage():
+    Image.open("") #Image 객체는 pillow 모듈파일에서 지원한다..따라서 현재 개발환경에
+                        #설치가 되어 있어야 한다..
 
 win=Tk() #윈도우 생성하고 win 변수에 담아둔다
 #윈도우에 소속시킬 켄버스를 생성하고, 그 크기를 너비1500,높이 800
@@ -24,9 +30,9 @@ canvas.pack()
 def gameLoop():
     while True:
         print("gameLoop 호출")
-        time.sleep(1000/1000)  # 1/1000초까지 시간을 간격을 둘수있음
+        time.sleep(1/1000)  # 1/1000초까지 시간을 간격을 둘수있음
+        win.update() #윈도우창을 갱신
 
 gameLoop() #게임루프를 호출
-
 #금방 닫혀버리는 윈도우창을 계속 떠있게 하자 
 win.mainloop()
