@@ -34,7 +34,7 @@ canvas.create_image(0, 0 , image=bgImg, anchor="nw")
 #주인공 생성하기 
 #canvas, img, x, y, width, height, velX, velY
 heroImg = getImage("./images/plane.png", 100, 65)
-hero=Hero(canvas, heroImg,100, 200,100,65,1,1) #거푸집(틀)로부터 주인공 탄생시키기
+hero=Hero(canvas, heroImg,100, 200,100,65,2,1) #거푸집(틀)로부터 주인공 탄생시키기
 
 #------------------------------------------------------------------
 # 그림 그리기 (켄버스에...)
@@ -75,14 +75,18 @@ def showInfo(msg):
 # 컴퓨터가 감당할 수 없다..우리가 원하는 것은 while문의 속도를
 # 늦추는 것이다...해결책? 시간 간격을 만들어서 while문을 호출
 def gameLoop():
+    
     while True:
-        print("gameLoop 호출")
-        time.sleep(1/1000)  # 1/1000초까지 시간을 간격을 둘수있음
+        # print("gameLoop 호출")
         #주인공의 움직임관련 함수를 호출하자
         hero.tick()
-        hero.render()
-        
+        # hero.render()
+
+        global canvas
+        canvas.move( hero.img , 1, 1)        
+
         win.update() #윈도우창을 갱신
+        time.sleep(1/1000)  # 1/1000초까지 시간을 간격을 둘수있음
 
 
 gameLoop() #게임루프를 호출

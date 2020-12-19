@@ -1,33 +1,123 @@
-#우리가 지금 만든 파일을 파이썬에서는 모듈이라 부른다~!
-#이 모듈안에 주인공, 총알, 적군, 아이템, 배경 등등..게임에 등장하는 모든 케릭터 및
-#사물들을 정의해놓고 써먹을 꺼임..
 
-#주인공을 만들자!!
-#클래스란? 사물 자체가 아니라, 사물을 여러개 생성할 수 있는 틀이다(거푸집과 같다)
-#it분에서는 틀을 가리켜 클래스라 한다!!
-class Hero(): #Hero라는 이름의 클래스 선언 
-    #어떤 켄버스에 부착할지,어떤이미지(img), 위치(x,y), 크기(width, height), 움직임속도(velX, velY)
-    def __init__(self, canvas, img, x, y, width, height, velX, velY): #주인공이 탄생할때 작성하고 싶은 코드를 넣는 함수 영역
-                          # 주인공의 색상이 빨간색으로 할지, 크기는 어떻게 할지 등등...  
+
+class GameObject():
+    def __init__(self, canvas, x, y, width, height, velX, velY):
         self.canvas=canvas
-        self.img=img
         self.x=x
         self.y=y
         self.width=width 
         self.height=height
-        self.velX=velX  #주인공의 x방향의 속도
-        self.velY=velY #주인공의 y방향의 속도
-        #주인공은 태어날때 우리눈에 보여져야 하고, 지정한 켄버스에 그려져야 한다 
-        self.canvas.create_image(self.x, self.y, image=self.img)
+        self.velX=velX
+        self.velY=velY
 
-    #주인공의 동작관 관련한 함수 정의 
-    def tick(self): #주인공의 상태를 얼만큼 변화시킬지를 결정, 예) 2씩, 3씩 움직일지..
+class BgImage(GameObject):
+    def __init__(self, canvas, img, x, y, width, height, velX, velY):
+        super().__init__(canvas,x, y ,width, height, velX, velY)
+        self.img=img
+        self.image = self.canvas.create_image(self.x, self.y, image=self.img, anchor="nw")
+        print("생성된 이미지 ", self.image )
+
+    def tick(self):
         self.x = self.x + self.velX
         self.y = self.y + self.velY
-        
+        # print("BgImage tick()..", self.x)
+    
     def render(self):
-        #주인공의 변경값을 켄버스에 다시 그리기!! (움직일대상이미지, x, y)
-        self.canvas.move( self.img , self.velX, self.velY)
-        print("velX 값은 ", self.velX)
+        self.canvas.move( self.image , self.velX, self.velY)
 
-#총알을 만들자!!
+
+class Hero(GameObject):
+    def __init__(self, canvas, img, x, y, width, height, velX, velY):
+        super().__init__(canvas,x, y ,width, height, velX, velY)
+        self.img=img
+        self.image = self.canvas.create_image(self.x, self.y, image=self.img)
+        print("생성된 이미지 ", self.image )
+
+    def tick(self):
+        self.x = self.x + self.velX
+        self.y = self.y + self.velY
+    
+    def render(self):
+        self.canvas.move( self.image , self.velX, self.velY)
+
+
+class Enemy(GameObject):
+    def __init__(self, canvas, img, x, y, width, height, velX, velY):
+        super().__init__(canvas,x, y ,width, height, velX, velY)
+        self.img=img
+        self.image = self.canvas.create_image(self.x, self.y, image=self.img)
+
+    def tick(self):
+        self.x = self.x + self.velX
+        self.y = self.y + self.velY
+    
+    def render(self):
+        self.canvas.move( self.image , self.velX, self.velY)
+
+
+class Bullet(GameObject):
+    def __init__(self, game_main, canvas, img, x, y, width, height, velX, velY):
+        super().__init__(canvas,x, y ,width, height, velX, velY)
+        self.game_main=game_main
+        self.img=img
+        self.image = self.canvas.create_image(self.x, self.y, image=self.img)
+
+    def tick(self):
+        self.x = self.x + self.velX
+        self.y = self.y + self.velY
+
+        # self.game_main.objectManager.createCollisionSet()
+        # self.game_main.objectManager.removeObject(self)
+
+    
+    def render(self):
+        self.canvas.move( self.image , self.velX, self.velY)
+
+
+
+class ObjectManager():
+    def __init__(self, canvas):
+        self.canvas=canvas
+        self.objectList=[] #게임에 등장할 오브젝트 리스트
+        self.collisionSet=set()  #충돌객체 명단(중복 허용안함)
+
+    #-----------------------------------------
+    # 객체 추가
+    #-----------------------------------------
+    def addObject(self, gameObject):
+        self.objectList.append(gameObject)
+        print(self.objectList)
+
+
+    #-----------------------------------------
+    # tick , render
+    #-----------------------------------------
+    def tick(self):
+        for obj in self.objectList:
+            obj.tick()
+
+    def render(self):
+        for obj in self.objectList:
+            obj.render()
+
+    #-----------------------------------------
+    # 충돌체크 명단 작성
+    #-----------------------------------------
+    def createCollisionSet(self):
+        for obj in self.objectList:
+            #켄버스내에 모든 객체를 대상으로 중첩되는 무언가가 있는지 체크
+            target= self.canvas.find_overlapping(*self.canvas.coords(obj)) 
+
+            if len(target)>1 :
+                print("size = ",target[0],"와 ", target[1]," 번째는 서로 교차됩니다")
+                self.collisionSet.add(target[0])
+                self.collisionSet.add(target[1])
+
+    #-----------------------------------------
+    # 충돌 객체 제거 : gameObject에 지울 대상 객체를 인수로 넘긴다
+    #-----------------------------------------
+    def removeObject(self, gameObject):
+        for item in self.collisionSet:
+            if item==gameObject.image:
+                self.canvas.delete(item)
+
