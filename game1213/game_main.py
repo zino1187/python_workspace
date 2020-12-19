@@ -86,12 +86,15 @@ class GameMain():
 
     def fire(self):
         self.createBullet()
+        self.showInfo("You have fired bullet")
+
+    def showInfo(self, msg):
+        self.canvas.create_text(100,25, fill="red", font="verdana", text=msg)
 
     def gameLoop(self):
         while self.gameFlag:                
             self.objectManager.tick()
             self.objectManager.render()
-
             # print("loop..")
             self.win.update()
             time.sleep(1/1000)
