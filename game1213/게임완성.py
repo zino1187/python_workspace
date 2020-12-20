@@ -69,7 +69,7 @@ class GameMain():
     def fire(self):
         #총알 클래스 즉 거푸집으로부터 총알을 생성하여, ObjectManager에게 등록요청
         img = self.getImage("./images/ball.png", 20,20)
-        bullet=Bullet(self.canvas,img, self.hero.x, self.hero.y,20,20,25,0)
+        bullet=Bullet(self, self.canvas,img,self.hero.x, self.hero.y, 20,20,25,0)
         self.bulletList.append(bullet) #상자에 생성된 총알 넣기!
 
 
