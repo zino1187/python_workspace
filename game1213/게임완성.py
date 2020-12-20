@@ -8,6 +8,7 @@ from lib import ObjectManager # lib.py에서 ObjectManager 클래스를 가져�
 from lib import BgImage # lib.py에서 BgImage 클래스를 가져오기
 from lib import Hero  # lib.py에서 BgImage 클래스를 가져오기
 from lib import Enemy # lib.py에서 Enemy 클래스를 가져오기
+from lib import Bullet # lib.py에서 Bullet 클래스를 가져오기
 
 #지난 시간에 거푸집을 프로그래밍 분야에서는 클래스라 한다.
 class GameMain():
@@ -17,6 +18,7 @@ class GameMain():
         self.gameFlag=True           
         self.enemyList=[] #적군을 차곡 차곡 쌓아놓을 상자 선언
                                    #이 상자는 배열이라 부르며, 첫번째 방이 0으로 인식됨 
+        self.bulletList=[] #생성된 총알을 차곡 차곡 순서대로 쌓아놓을 리스트 선언
 
         self.win=Tk() #윈도우창 호출하고, 그 윈도우를 가리킬 변수 선언
         self.canvas = Canvas(self.win, width=1400, height=800, bg="yellow") #켄버스 생성
@@ -48,6 +50,8 @@ class GameMain():
             self.hero.velY=-5
         elif event.keycode==40:
             self.hero.velY=5 #y축의 양수방향(아래쪽)            
+        elif event.keycode==32: #총알 생성하자!!
+            self.fire()
 
     def keyUp(self, event):
         print("키 눌렀어?", event.keycode)
@@ -61,6 +65,13 @@ class GameMain():
             self.hero.velY=0
         elif event.keycode==40:
             self.hero.velY=0 #y축의 양수방향(아래쪽)            
+
+    def fire(self):
+        #총알 클래스 즉 거푸집으로부터 총알을 생성하여, ObjectManager에게 등록요청
+        img = self.getImage("./images/ball.png", 20,20)
+        bullet=Bullet(self.canvas,img, self.hero.x, self.hero.y,20,20,25,0)
+        self.bulletList.append(bullet) #상자에 생성된 총알 넣기!
+
 
     #게임에 사용할 이미지를 생성해주는 함수
     # 아래의 함수는 현재 GameMain이라는 클래스 안에 작성하고 있으므로, 
