@@ -31,6 +31,7 @@ class GameMain():
 
         #키보드와 나의 게임 연결하기
         self.win.bind("<Key>", self.keyDown) #키보드를 누를때를감지하여, 지정한 함수 호출
+        self.win.bind("<KeyRelease>", self.keyUp) #키보드에서 손을 떼면
 
         self.gameLoop() # 게임 엔진 가동시작!!
         self.win.mainloop() #윈도우가 사라지지않고 계속 유지될 수 있게 루프실행
@@ -47,6 +48,19 @@ class GameMain():
             self.hero.velY=-5
         elif event.keycode==40:
             self.hero.velY=5 #y축의 양수방향(아래쪽)            
+
+    def keyUp(self, event):
+        print("키 눌렀어?", event.keycode)
+        #우리가 누른 키보드마다 1:1 대응하는 숫자가 존재한다 .
+        # 각 키마다 조건을 줘서 주인공을 움직여 보자!!!
+        if event.keycode==37: #x축의 음수방향(왼쪽)
+            self.hero.velX=0
+        elif event.keycode==39: #x축의 양수방향(오른쪽)
+            self.hero.velX=0            
+        elif event.keycode==38: #y축의 음수방향(위쪽)
+            self.hero.velY=0
+        elif event.keycode==40:
+            self.hero.velY=0 #y축의 양수방향(아래쪽)            
 
     #게임에 사용할 이미지를 생성해주는 함수
     # 아래의 함수는 현재 GameMain이라는 클래스 안에 작성하고 있으므로, 
