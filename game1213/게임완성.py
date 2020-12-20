@@ -71,6 +71,7 @@ class GameMain():
         img = self.getImage("./images/ball.png", 20,20)
         bullet=Bullet(self, self.canvas,img,self.hero.x, self.hero.y, 20,20,25,0)
         self.bulletList.append(bullet) #상자에 생성된 총알 넣기!
+        self.objectManager.addObject(bullet) 
 
 
     #게임에 사용할 이미지를 생성해주는 함수
