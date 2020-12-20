@@ -70,8 +70,8 @@ class GameMain():
     def createEnemy(self):  
         #너비와 높이가 각각 80인 적군 이미지 가져오기!!
         for i in range(0,5):  # 0,1,2,3,4      
-            img=self.getImage("./images/e"+str(i)+".png", 80, 80) 
-            self.en = Enemy(self.canvas, img, 1300, 300,80,80,-0.2,0)
+            img=self.getImage("./images/e"+str(i+1)+".png", 80, 80) 
+            self.en = Enemy(self.canvas, img, 1300, 100+(i*100),80,80,-0.2,0)
             self.objectManager.addObject(self.en) #적군 등록을 요청
             #방금 생성된 적군을 상자에 순서대로 채워넣기!!
             self.enemyList.append(self.en)
