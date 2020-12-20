@@ -14,7 +14,10 @@ class GameMain():
     def __init__(self): #모든 클래스가 반드시 가져야할 함수를 가리켜 생성자라한다..
                                 #생성자는 거푸집으로부터 물건을 생성해 낼때 어떤 모양, 색상, 특징을 
                                 #갖는지를 결정짓는 함수다..    
-        self.gameFlag=True                                
+        self.gameFlag=True           
+        self.enemyList=[] #적군을 차곡 차곡 쌓아놓을 상자 선언
+                                   #이 상자는 배열이라 부르며, 첫번째 방이 0으로 인식됨 
+
         self.win=Tk() #윈도우창 호출하고, 그 윈도우를 가리킬 변수 선언
         self.canvas = Canvas(self.win, width=1400, height=800, bg="yellow") #켄버스 생성
         self.canvas.pack() #윈도우에 부착하기!!
@@ -66,9 +69,13 @@ class GameMain():
     #적군을 등장시키는 함수
     def createEnemy(self):  
         #너비와 높이가 각각 80인 적군 이미지 가져오기!!
-        img=self.getImage("./images/e1.png", 80, 80) 
-        self.en = Enemy(self.canvas, img, 1300, 300,80,80,-5,0)
-        self.objectManager.addObject(self.en) #적군 등록을 요청
+        for i in range(0,5):  # 0,1,2,3,4      
+            img=self.getImage("./images/e"+str(i)+".png", 80, 80) 
+            self.en = Enemy(self.canvas, img, 1300, 300,80,80,-0.2,0)
+            self.objectManager.addObject(self.en) #적군 등록을 요청
+            #방금 생성된 적군을 상자에 순서대로 채워넣기!!
+            self.enemyList.append(self.en)
+
 
     #게임루프 정의하기!!(게임의 심장박동, 즉 엔진과 같다)
     def gameLoop(self):
