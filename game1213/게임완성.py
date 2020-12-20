@@ -19,6 +19,7 @@ class GameMain():
         #ObjectManager 거푸집으로부터 ObjectManager 하나를 생성하자!!
         # 이때, ObjectManager 그림을 그릴 켄버스를 넘겨줘야 한다!!
         self.objectManager = ObjectManager(self.canvas)
+        self.createBg()
 
         self.win.mainloop() #윈도우가 사라지지않고 계속 유지될 수 있게 루프실행
 
@@ -35,7 +36,14 @@ class GameMain():
 
     #배경을 탄생시킨다!!
     def createBg(self):
-        img=self.getImage()
+        img=self.getImage() #배경에 사용할 이미지 얻기완료!!
+        
+        #BgImage라는 클래스 즉 거푸집으로부터 , 배경 객체 하나 만들기!!
+        self.bgImage=BgImage(self.canvas, img, 0, 0 ,1400,800,0,0)
+        
+        #ObjectManager에게 지금 생성된 배경이미지 객체를 등록요청한다!!
+        self.objectManager.addObject(self.bgImage)
+
         print(img)
 
 
