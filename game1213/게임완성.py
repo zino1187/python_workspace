@@ -2,6 +2,7 @@ from tkinter import Tk  #tkinter라는 파일에서 Tk() 함수가져오기
 from tkinter import Canvas #tkinter라는 파일에서 Canvas가져오기
 from PIL import Image #pillow 라는 모듈파일에서 Image 가져오기 
 from PIL import ImageTk #pillow 라는 모듈파일에서 ImageTk 가져오기 
+import time #time 모듈 가져오기 (일정 시간 간격으로 실행루프를 생성하기 위해)
 
 from lib import ObjectManager # lib.py에서 ObjectManager 클래스를 가져오기
 from lib import BgImage # lib.py에서 BgImage 클래스를 가져오기
@@ -13,6 +14,7 @@ class GameMain():
     def __init__(self): #모든 클래스가 반드시 가져야할 함수를 가리켜 생성자라한다..
                                 #생성자는 거푸집으로부터 물건을 생성해 낼때 어떤 모양, 색상, 특징을 
                                 #갖는지를 결정짓는 함수다..    
+        self.gameFlag=True                                
         self.win=Tk() #윈도우창 호출하고, 그 윈도우를 가리킬 변수 선언
         self.canvas = Canvas(self.win, width=1400, height=800, bg="yellow") #켄버스 생성
         self.canvas.pack() #윈도우에 부착하기!!
@@ -24,6 +26,7 @@ class GameMain():
         self.createHero()
         self.createEnemy()
 
+        self.gameLoop() # 게임 엔진 가동시작!!
         self.win.mainloop() #윈도우가 사라지지않고 계속 유지될 수 있게 루프실행
 
     #게임에 사용할 이미지를 생성해주는 함수
@@ -64,8 +67,24 @@ class GameMain():
     def createEnemy(self):  
         #너비와 높이가 각각 80인 적군 이미지 가져오기!!
         img=self.getImage("./images/e1.png", 80, 80) 
-        self.en = Enemy(self.canvas, img, 1300, 300,80,80,-1,0)
+        self.en = Enemy(self.canvas, img, 1300, 300,80,80,-5,0)
         self.objectManager.addObject(self.en) #적군 등록을 요청
+
+    #게임루프 정의하기!!(게임의 심장박동, 즉 엔진과 같다)
+    def gameLoop(self):
+        #while문이 True인 동안 끝없이  엄청난 속도로 실행이 됨
+        #속도가 너무 빠르면, 화면에 그림을 그리는 작업에 무리가 갈 수 있기 때문에
+        #속도를 조절할 필요가 있다..time 모듈을 이용하여 우리가 원하는 시간 간격
+        #으로 속도를 조절하겟다...1/1000초까지 표현가능하다
+        while self.gameFlag:
+            print("gameLoop 실행중..")
+
+            #ObjectManager로 하여금 게임에 등장하는 모든 객체가 움직이도록 요청
+            self.objectManager.tick() #변화량을 체크 
+            self.objectManager.render() #화면에 다시 그려라
+
+            self.win.update()#윈도우 화면을 다시 그리자!(변경 사항 반영)
+            time.sleep(1/1000) #실행부를 1000분의 1초간격으로 실행되게..
 
 GameMain() #거푸집으로부터, 물체 하나를 생성한다.. 
                     #주의) 클래스명에 함수표시를 한 함수가 바로 __init__을 의미 
