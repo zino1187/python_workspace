@@ -29,8 +29,14 @@ class GameMain():
         self.createHero()
         self.createEnemy()
 
+        #키보드와 나의 게임 연결하기
+        self.win.bind("<Key>", keyDown) #키보드를 누를때를감지하여, 지정한 함수 호출
+
         self.gameLoop() # 게임 엔진 가동시작!!
         self.win.mainloop() #윈도우가 사라지지않고 계속 유지될 수 있게 루프실행
+
+    def keyDown(self, event):
+        print("키 눌렀어?")
 
     #게임에 사용할 이미지를 생성해주는 함수
     # 아래의 함수는 현재 GameMain이라는 클래스 안에 작성하고 있으므로, 
@@ -84,7 +90,7 @@ class GameMain():
         #속도를 조절할 필요가 있다..time 모듈을 이용하여 우리가 원하는 시간 간격
         #으로 속도를 조절하겟다...1/1000초까지 표현가능하다
         while self.gameFlag:
-            print("gameLoop 실행중..")
+            #print("gameLoop 실행중..")
 
             #ObjectManager로 하여금 게임에 등장하는 모든 객체가 움직이도록 요청
             self.objectManager.tick() #변화량을 체크 
