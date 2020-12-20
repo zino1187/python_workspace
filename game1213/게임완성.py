@@ -30,13 +30,19 @@ class GameMain():
         self.createEnemy()
 
         #키보드와 나의 게임 연결하기
-        self.win.bind("<Key>", keyDown) #키보드를 누를때를감지하여, 지정한 함수 호출
+        self.win.bind("<Key>", self.keyDown) #키보드를 누를때를감지하여, 지정한 함수 호출
 
         self.gameLoop() # 게임 엔진 가동시작!!
         self.win.mainloop() #윈도우가 사라지지않고 계속 유지될 수 있게 루프실행
 
     def keyDown(self, event):
-        print("키 눌렀어?")
+        print("키 눌렀어?", event.keycode)
+        #우리가 누른 키보드마다 1:1 대응하는 숫자가 존재한다 .
+        # 각 키마다 조건을 줘서 주인공을 움직여 보자!!!
+        if event.keycode==37:
+            self.hero.velX=-5
+        elif event.keycode==39:
+            self.hero.velX=5            
 
     #게임에 사용할 이미지를 생성해주는 함수
     # 아래의 함수는 현재 GameMain이라는 클래스 안에 작성하고 있으므로, 
