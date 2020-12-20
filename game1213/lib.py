@@ -40,7 +40,8 @@ class Hero(GameObject):
     def render(self):
         self.canvas.move( self.image , self.velX, self.velY)
 
-
+#적군 클래스, 거푸집이므로 적군을 20마리 생성하고 싶으면, 클래스를 
+#20번 호출하면 된다..
 class Enemy(GameObject):
     def __init__(self, canvas, img, x, y, width, height, velX, velY):
         super().__init__(canvas,x, y ,width, height, velX, velY)
@@ -54,7 +55,7 @@ class Enemy(GameObject):
     def render(self):
         self.canvas.move( self.image , self.velX, self.velY)
 
-
+#총알 클래스 : 총알을 생성하고 이 거푸집이므로 , 원하는 만큼 호출하면 됨
 class Bullet(GameObject):
     def __init__(self, game_main, canvas, img, x, y, width, height, velX, velY):
         super().__init__(canvas,x, y ,width, height, velX, velY)
@@ -74,7 +75,9 @@ class Bullet(GameObject):
         self.canvas.move( self.image , self.velX, self.velY)
 
 
-
+# 게임진행을 쉽게 해주는 클래스 
+# 주인공, 적군, 총알 등등 게임에 등장할 모든 물건을 , 등장시켜주는 역할 
+# 게임에서 사라질 객체, 즉 제거될 객체를 처리해주는 역할
 class ObjectManager():
     def __init__(self, canvas):
         self.canvas=canvas
