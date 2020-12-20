@@ -26,17 +26,17 @@ class GameMain():
     #게임에 사용할 이미지를 생성해주는 함수
     # 아래의 함수는 현재 GameMain이라는 클래스 안에 작성하고 있으므로, 
     # GameMain 클래스 소속임을 알려주기 위해 self 를 전달해줘야 한다..
-    def getImage(self):
-        img=Image.open("./images/desert.jpg") #Image객체의 open함수 호출
+    def getImage(self, path, width, height):
+        img=Image.open(path) #Image객체의 open함수 호출
         #켄버스 크기에 맞도록 이미지 조정 
-        img=img.resize((1400, 800) , Image.ANTIALIAS)
+        img=img.resize((width, height) , Image.ANTIALIAS)
         #크기를 조정해서 만들어진 이미지를 켄버스에 사용할 수 있도록 가공 
         img=ImageTk.PhotoImage(img)
         return img #함수 호출한 사람이 그 결과를 가지고 갈수 있도록 결과 반환
 
     #배경을 탄생시킨다!!
     def createBg(self):
-        img=self.getImage() #배경에 사용할 이미지 얻기완료!!
+        img=self.getImage("./images/desert.jpg") #배경에 사용할 이미지 얻기완료!!
         
         #BgImage라는 클래스 즉 거푸집으로부터 , 배경 객체 하나 만들기!!
         self.bgImage=BgImage(self.canvas, img, 0, 0 ,1400,800,0,0)
@@ -44,8 +44,10 @@ class GameMain():
         #ObjectManager에게 지금 생성된 배경이미지 객체를 등록요청한다!!
         self.objectManager.addObject(self.bgImage)
 
-        print(img)
-
+    #주인공을 탄생시킨다!!
+    def createHero(self):
+        img = self.getImage("./images/plane.png")
+        
 
 GameMain() #거푸집으로부터, 물체 하나를 생성한다.. 
                     #주의) 클래스명에 함수표시를 한 함수가 바로 __init__을 의미 
