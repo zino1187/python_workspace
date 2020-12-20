@@ -3,9 +3,10 @@ from tkinter import Canvas #tkinter라는 파일에서 Canvas가져오기
 from PIL import Image #pillow 라는 모듈파일에서 Image 가져오기 
 from PIL import ImageTk #pillow 라는 모듈파일에서 ImageTk 가져오기 
 
+from lib import ObjectManager # lib.py에서 ObjectManager 클래스를 가져오기
 from lib import BgImage # lib.py에서 BgImage 클래스를 가져오기
 from lib import Hero  # lib.py에서 BgImage 클래스를 가져오기
-from lib import ObjectManager # lib.py에서 ObjectManager 클래스를 가져오기
+from lib import Enemy # lib.py에서 Enemy 클래스를 가져오기
 
 #지난 시간에 거푸집을 프로그래밍 분야에서는 클래스라 한다.
 class GameMain():
@@ -21,6 +22,7 @@ class GameMain():
         self.objectManager = ObjectManager(self.canvas)
         self.createBg()
         self.createHero()
+        self.createEnemy()
 
         self.win.mainloop() #윈도우가 사라지지않고 계속 유지될 수 있게 루프실행
 
@@ -54,10 +56,16 @@ class GameMain():
         #생성된 주인공을 켄버스에 그리도록 ObjectManager 등록요청
         self.objectManager.addObject(self.hero)
 
-        img = self.getImage("./images/plane.png", 200,120 )
-        self.hero2 = Hero(self.canvas,img, 600,200, 200,120,0,0)
-        self.objectManager.addObject(self.hero2)
-        
+        # img = self.getImage("./images/plane.png", 200,120 )
+        # self.hero2 = Hero(self.canvas,img, 600,200, 200,120,0,0)
+        # self.objectManager.addObject(self.hero2)
+
+    #적군을 등장시키는 함수
+    def createEnemy(self):  
+        #너비와 높이가 각각 80인 적군 이미지 가져오기!!
+        img=self.getImage("./images/e1.png", 80, 80) 
+        self.en = Enemy(self.canvas, img, 1300, 300,80,80,-1,0)
+        self.objectManager.addObject(self.en) #적군 등록을 요청
 
 GameMain() #거푸집으로부터, 물체 하나를 생성한다.. 
                     #주의) 클래스명에 함수표시를 한 함수가 바로 __init__을 의미 
