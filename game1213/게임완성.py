@@ -53,6 +53,10 @@ class GameMain():
         self.hero = Hero(self.canvas, img, 100,100, 100, 60, 0, 0)
         #생성된 주인공을 켄버스에 그리도록 ObjectManager 등록요청
         self.objectManager.addObject(self.hero)
+
+        img = self.getImage("./images/plane.png", 200,120 )
+        self.hero2 = Hero(self.canvas,img, 600,200, 200,120,0,0)
+        self.objectManager.addObject(self.hero2)
         
 
 GameMain() #거푸집으로부터, 물체 하나를 생성한다.. 
