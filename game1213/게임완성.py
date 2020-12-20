@@ -20,6 +20,7 @@ class GameMain():
         # 이때, ObjectManager 그림을 그릴 켄버스를 넘겨줘야 한다!!
         self.objectManager = ObjectManager(self.canvas)
         self.createBg()
+        self.createHero()
 
         self.win.mainloop() #윈도우가 사라지지않고 계속 유지될 수 있게 루프실행
 
@@ -36,7 +37,7 @@ class GameMain():
 
     #배경을 탄생시킨다!!
     def createBg(self):
-        img=self.getImage("./images/desert.jpg") #배경에 사용할 이미지 얻기완료!!
+        img=self.getImage("./images/desert.jpg", 1400, 800) #배경에 사용할 이미지 얻기완료!!
         
         #BgImage라는 클래스 즉 거푸집으로부터 , 배경 객체 하나 만들기!!
         self.bgImage=BgImage(self.canvas, img, 0, 0 ,1400,800,0,0)
@@ -46,7 +47,12 @@ class GameMain():
 
     #주인공을 탄생시킨다!!
     def createHero(self):
-        img = self.getImage("./images/plane.png")
+        #너비100,높이60인 주인공 이미지 얻기
+        img = self.getImage("./images/plane.png", 100,60) 
+        #주인공 거푸집에서 주인공 한명을 탄생시켜보자!!
+        self.hero = Hero(self.canvas, img, 100,100, 100, 60, 0, 0)
+        #생성된 주인공을 켄버스에 그리도록 ObjectManager 등록요청
+        self.objectManager.addObject(self.hero)
         
 
 GameMain() #거푸집으로부터, 물체 하나를 생성한다.. 
